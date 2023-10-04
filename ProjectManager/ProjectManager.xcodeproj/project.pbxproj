@@ -14,6 +14,9 @@
 		4519DC782ABC630D00EF65E3 /* ProjectUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4519DC772ABC630D00EF65E3 /* ProjectUseCase.swift */; };
 		4519DC7F2ABD19A400EF65E3 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4519DC7E2ABD19A400EF65E3 /* MainViewModel.swift */; };
 		4519DC812ABD21E600EF65E3 /* ProjectListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4519DC802ABD21E600EF65E3 /* ProjectListViewModel.swift */; };
+		451DFF222ACD408C0041B8A0 /* ProjectModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 451DFF202ACD408C0041B8A0 /* ProjectModel.xcdatamodeld */; };
+		451DFF252ACD40DA0041B8A0 /* ProjectEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451DFF232ACD40DA0041B8A0 /* ProjectEntity+CoreDataClass.swift */; };
+		451DFF262ACD40DA0041B8A0 /* ProjectEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451DFF242ACD40DA0041B8A0 /* ProjectEntity+CoreDataProperties.swift */; };
 		452784202AC01575003B2468 /* CurrentDateFormatManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4527841F2AC01575003B2468 /* CurrentDateFormatManager.swift */; };
 		452784222AC01BE5003B2468 /* ProjectDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452784212AC01BE5003B2468 /* ProjectDetailViewModel.swift */; };
 		453839582AC311E60027BAF9 /* Calendar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 453839572AC311E60027BAF9 /* Calendar+.swift */; };
@@ -37,6 +40,9 @@
 		4519DC772ABC630D00EF65E3 /* ProjectUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectUseCase.swift; sourceTree = "<group>"; };
 		4519DC7E2ABD19A400EF65E3 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		4519DC802ABD21E600EF65E3 /* ProjectListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectListViewModel.swift; sourceTree = "<group>"; };
+		451DFF212ACD408C0041B8A0 /* ProjectModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProjectModel.xcdatamodel; sourceTree = "<group>"; };
+		451DFF232ACD40DA0041B8A0 /* ProjectEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		451DFF242ACD40DA0041B8A0 /* ProjectEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4527841F2AC01575003B2468 /* CurrentDateFormatManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentDateFormatManager.swift; sourceTree = "<group>"; };
 		452784212AC01BE5003B2468 /* ProjectDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailViewModel.swift; sourceTree = "<group>"; };
 		453839572AC311E60027BAF9 /* Calendar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+.swift"; sourceTree = "<group>"; };
@@ -199,6 +205,22 @@
 			path = Entity;
 			sourceTree = "<group>";
 		};
+		451DFF1E2ACD406E0041B8A0 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				451DFF1F2ACD40780041B8A0 /* Repositories */,
+				451DFF202ACD408C0041B8A0 /* ProjectModel.xcdatamodeld */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		451DFF1F2ACD40780041B8A0 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
 		459D1BB22ABC2B6900D80E1A /* ProjectDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +266,8 @@
 		C7431EF925F51E1D0094C4CF = {
 			isa = PBXGroup;
 			children = (
+				451DFF232ACD40DA0041B8A0 /* ProjectEntity+CoreDataClass.swift */,
+				451DFF242ACD40DA0041B8A0 /* ProjectEntity+CoreDataProperties.swift */,
 				4549D7542AB94FE7005EA4D7 /* .swiftlint.yml */,
 				C7431F0425F51E1D0094C4CF /* ProjectManager */,
 				C7431F0325F51E1D0094C4CF /* Products */,
@@ -264,6 +288,7 @@
 				450F8F5E2ABA7F57009D1B14 /* Application */,
 				450F8F662ABA81D1009D1B14 /* Domain */,
 				450F8F622ABA8017009D1B14 /* Presentation */,
+				451DFF1E2ACD406E0041B8A0 /* Data */,
 				450F8F5F2ABA7F7E009D1B14 /* Utils */,
 				450F8F602ABA7FDA009D1B14 /* Resources */,
 			);
@@ -373,9 +398,11 @@
 				450F8F842ABACF7A009D1B14 /* ProjectTableViewCell.swift in Sources */,
 				450F8F7E2ABA9E8A009D1B14 /* ProjectListViewController.swift in Sources */,
 				452784222AC01BE5003B2468 /* ProjectDetailViewModel.swift in Sources */,
+				451DFF252ACD40DA0041B8A0 /* ProjectEntity+CoreDataClass.swift in Sources */,
 				4519DC812ABD21E600EF65E3 /* ProjectListViewModel.swift in Sources */,
 				C7431F0A25F51E1D0094C4CF /* MainViewController.swift in Sources */,
 				C7431F0625F51E1D0094C4CF /* AppDelegate.swift in Sources */,
+				451DFF222ACD408C0041B8A0 /* ProjectModel.xcdatamodeld in Sources */,
 				452784202AC01575003B2468 /* CurrentDateFormatManager.swift in Sources */,
 				453839582AC311E60027BAF9 /* Calendar+.swift in Sources */,
 				C7431F0825F51E1D0094C4CF /* SceneDelegate.swift in Sources */,
@@ -383,6 +410,7 @@
 				4519DC782ABC630D00EF65E3 /* ProjectUseCase.swift in Sources */,
 				450F8F822ABACCAE009D1B14 /* Project.swift in Sources */,
 				45C202E62AC51AB4004882DC /* CircleCountLabel.swift in Sources */,
+				451DFF262ACD40DA0041B8A0 /* ProjectEntity+CoreDataProperties.swift in Sources */,
 				459D1BB62ABC2BD400D80E1A /* ProjectDetailViewController.swift in Sources */,
 				4519DC7F2ABD19A400EF65E3 /* MainViewModel.swift in Sources */,
 				45C202E42AC5164D004882DC /* ProjectTableViewCellViewModel.swift in Sources */,
@@ -604,6 +632,19 @@
 			productName = FirebaseAnalytics;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		451DFF202ACD408C0041B8A0 /* ProjectModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				451DFF212ACD408C0041B8A0 /* ProjectModel.xcdatamodel */,
+			);
+			currentVersion = 451DFF212ACD408C0041B8A0 /* ProjectModel.xcdatamodel */;
+			path = ProjectModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C7431EFA25F51E1D0094C4CF /* Project object */;
 }
