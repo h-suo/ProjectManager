@@ -14,6 +14,7 @@
 		458BA4842B96F61800FDF1C6 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 458BA4832B96F61800FDF1C6 /* ComposableArchitecture */; };
 		458BA48A2B96FA5B00FDF1C6 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458BA4892B96FA5B00FDF1C6 /* Project.swift */; };
 		458BA48C2B96FBA500FDF1C6 /* ProjectsFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458BA48B2B96FBA500FDF1C6 /* ProjectsFeature.swift */; };
+		458BA4902B9733A300FDF1C6 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458BA48F2B9733A300FDF1C6 /* ProjectRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		4569CF972B95A55A0008A3B4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		458BA4892B96FA5B00FDF1C6 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		458BA48B2B96FBA500FDF1C6 /* ProjectsFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsFeature.swift; sourceTree = "<group>"; };
+		458BA48F2B9733A300FDF1C6 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				4569CF922B95A5580008A3B4 /* ContentView.swift */,
+				458BA48F2B9733A300FDF1C6 /* ProjectRow.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -194,6 +197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4569CF932B95A5580008A3B4 /* ContentView.swift in Sources */,
+				458BA4902B9733A300FDF1C6 /* ProjectRow.swift in Sources */,
 				4569CF912B95A5580008A3B4 /* ProjectManagerApp.swift in Sources */,
 				458BA48C2B96FBA500FDF1C6 /* ProjectsFeature.swift in Sources */,
 				458BA48A2B96FA5B00FDF1C6 /* Project.swift in Sources */,
