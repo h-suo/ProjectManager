@@ -7,25 +7,25 @@
 
 import Foundation
 
-enum State: String, CaseIterable {
+enum ProjectState: String, CaseIterable {
   case toDo = "TODO"
   case doing = "DOING"
   case done = "DONE"
 }
 
-struct Project: Identifiable {
+struct Project: Equatable, Identifiable {
   let id: UUID
   var title: String
   var body: String
   var deadline: Date
-  var state: State
+  var state: ProjectState
   
   init(
     id: UUID = UUID(),
     title: String,
     body: String,
     deadline: Date,
-    state: State
+    state: ProjectState
   ) {
     self.id = id
     self.title = title
