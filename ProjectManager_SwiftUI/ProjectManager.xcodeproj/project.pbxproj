@@ -40,7 +40,9 @@
 				4569CF8F2B95A5580008A3B4 /* ProjectManager */,
 				4569CF8E2B95A5580008A3B4 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		4569CF8E2B95A5580008A3B4 /* Products */ = {
 			isa = PBXGroup;
