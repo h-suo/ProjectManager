@@ -25,7 +25,7 @@ struct Project: Equatable, Identifiable {
     title: String,
     body: String,
     deadline: Date,
-    state: ProjectState
+    state: ProjectState = .toDo
   ) {
     self.id = id
     self.title = title

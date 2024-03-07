@@ -51,12 +51,12 @@ struct ProjectsView: View {
     store: Store(
       initialState: ProjectsFeature.State(
         projects: [
-          Project(title: "Title", body: "body", deadline: Date(), state: .toDo),
-          Project(title: "Title", body: "body", deadline: Date(), state: .toDo),
-          Project(title: "Title", body: "body", deadline: Date(), state: .toDo),
-          Project(title: "Title", body: "body", deadline: Date(), state: .toDo),
-          Project(title: "Title", body: "body", deadline: Date(), state: .toDo),
-          Project(title: "Title", body: "body", deadline: Date(), state: .toDo),
+          Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date()),
         ]
       ),
       reducer: { ProjectsFeature() }
