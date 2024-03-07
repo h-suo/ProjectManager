@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		456027702B997978003AED64 /* ProjectDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4560276F2B997978003AED64 /* ProjectDetailFeature.swift */; };
 		4569CF912B95A5580008A3B4 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569CF902B95A5580008A3B4 /* ProjectManagerApp.swift */; };
 		4569CF932B95A5580008A3B4 /* ProjectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569CF922B95A5580008A3B4 /* ProjectsView.swift */; };
 		4569CF952B95A55A0008A3B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4569CF942B95A55A0008A3B4 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4560276F2B997978003AED64 /* ProjectDetailFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailFeature.swift; sourceTree = "<group>"; };
 		4569CF8D2B95A5580008A3B4 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4569CF902B95A5580008A3B4 /* ProjectManagerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectManagerApp.swift; sourceTree = "<group>"; };
 		4569CF922B95A5580008A3B4 /* ProjectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsView.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 			children = (
 				458BA4892B96FA5B00FDF1C6 /* Project.swift */,
 				458BA48B2B96FBA500FDF1C6 /* ProjectsFeature.swift */,
+				4560276F2B997978003AED64 /* ProjectDetailFeature.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				458BA4902B9733A300FDF1C6 /* ProjectRow.swift in Sources */,
+				456027702B997978003AED64 /* ProjectDetailFeature.swift in Sources */,
 				4569CF932B95A5580008A3B4 /* ProjectsView.swift in Sources */,
 				458BA48E2B97337900FDF1C6 /* ProjectList.swift in Sources */,
 				4569CF912B95A5580008A3B4 /* ProjectManagerApp.swift in Sources */,
