@@ -11,6 +11,8 @@ import Foundation
 @Reducer
 struct ProjectDetailFeature {
   
+  @Dependency(\.dismiss) var dismiss
+  
   @ObservableState
   struct State: Equatable {
     var project: Project
@@ -19,17 +21,27 @@ struct ProjectDetailFeature {
   enum Action {
     case cancelButtonTapped
     case saveButtonTapped
+    case delegate(Delegate)
     case setTitle(String)
     case setBody(String)
     case setDeadLine(Date)
+    
+    enum Delegate: Equatable {
+      case saveProject(Project)
+    }
   }
   
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
       case .cancelButtonTapped:
-        return .none
+        return .run { _ in await self.dismiss() }
       case .saveButtonTapped:
+        return .run { [project = state.project] send in
+          await send(.delegate(.saveProject(project)))
+          await self.dismiss()
+        }
+      case .delegate:
         return .none
       case let .setTitle(title):
         state.project.title = title

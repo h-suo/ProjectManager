@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ProjectsView: View {
   
-  let store: StoreOf<ProjectsFeature>
+  @Bindable
+  var store: StoreOf<ProjectsFeature>
   
   var body: some View {
     NavigationStack {
@@ -37,11 +38,18 @@ struct ProjectsView: View {
       .toolbarBackground(.visible, for: .navigationBar)
       .toolbar {
         ToolbarItem {
-          Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+          Button {
+            store.send(.addButtonTapped)
+          } label: {
             Image(systemName: "plus")
-          })
+          }
         }
       }
+    }
+    .sheet(
+      item: $store.scope(state: \.addProject, action: \.addProject)
+    ) { projectDetailStore in
+      ProjectDetailView(store: projectDetailStore)
     }
   }
 }
