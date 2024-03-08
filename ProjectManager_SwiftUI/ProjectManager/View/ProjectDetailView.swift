@@ -26,7 +26,8 @@ struct ProjectDetailView: View {
         
         DatePicker(
           "",
-          selection: $store.project.deadline.sending(\.setDeadLine)
+          selection: $store.project.deadline.sending(\.setDeadLine),
+          displayedComponents: .date
         )
           .datePickerStyle(.wheel)
           .frame(width: 0)

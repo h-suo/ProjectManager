@@ -46,6 +46,7 @@ struct ProjectList: View {
           ProjectRow(project: project)
         }
       }
+      .animation(.easeIn, value: store.projects)
       .background(.white)
       .listStyle(.plain)
     }
