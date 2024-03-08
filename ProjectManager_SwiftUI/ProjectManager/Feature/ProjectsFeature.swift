@@ -20,6 +20,7 @@ struct ProjectsFeature {
   enum Action {
     case addButtonTapped
     case projectRowSelected(Project)
+    case projectRowDeleted(Project.ID)
     case updateProject(PresentationAction<ProjectDetailFeature.Action>)
   }
   
@@ -39,6 +40,9 @@ struct ProjectsFeature {
         state.updateProject = ProjectDetailFeature.State(
           project: project
         )
+        return .none
+      case let .projectRowDeleted(id):
+        state.projects.remove(id: id)
         return .none
       case let .updateProject(.presented(.delegate(.saveProject(project)))):
         state.projects.updateOrAppend(project)

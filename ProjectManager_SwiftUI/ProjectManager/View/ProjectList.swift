@@ -45,6 +45,11 @@ struct ProjectList: View {
         } label: {
           ProjectRow(project: project)
         }
+        .swipeActions {          
+          Button("Delete", role: .destructive) {
+            store.send(.projectRowDeleted(project.id))
+          }
+        }
       }
       .animation(.easeIn, value: store.projects)
       .background(.white)
