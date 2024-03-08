@@ -5,13 +5,15 @@
 //  Created by Erick on 3/5/24.
 //
 
-import IdentifiedCollections
+import ComposableArchitecture
 import SwiftUI
 
 struct ProjectList: View {
   
+  @Bindable
+  var store: StoreOf<ProjectsFeature>
+  
   let title: String
-  let projects: IdentifiedArrayOf<Project>
   
   var body: some View {
     VStack {
@@ -20,7 +22,7 @@ struct ProjectList: View {
           Text(title)
             .font(.title)
           
-          Text("\(projects.count)")
+          Text("\(store.projects.count)")
             .font(.title)
             .foregroundStyle(.white)
             .padding([.all], 8)
@@ -33,8 +35,12 @@ struct ProjectList: View {
       }
       .background(Color(.quaternarySystemFill))
       
-      List(projects) { project in
-        ProjectRow(project: project)
+      List(store.projects) { project in
+        Button {
+          store.send(.projectRowSelected(project))
+        } label: {
+          ProjectRow(project: project)
+        }
       }
       .background(.white)
       .listStyle(.plain)
@@ -44,14 +50,19 @@ struct ProjectList: View {
 
 #Preview {
   ProjectList(
-    title: "DOING",
-    projects: [
-      Project(title: "test", body: "test", deadline: Date(), state: .doing),
-      Project(title: "test", body: "test", deadline: Date(), state: .doing),
-      Project(title: "test", body: "test", deadline: Date(), state: .doing),
-      Project(title: "test", body: "test", deadline: Date(), state: .doing),
-      Project(title: "test", body: "test", deadline: Date(), state: .doing),
-      Project(title: "test", body: "test", deadline: Date(), state: .doing),
-    ]
+    store: Store(
+      initialState: ProjectsFeature.State(
+        projects: [
+          Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date()),
+        ]
+      ),
+      reducer: { ProjectsFeature() }
+    ),
+    title: "DOING"
   )
 }

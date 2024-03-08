@@ -17,18 +17,18 @@ struct ProjectsView: View {
     NavigationStack {
       HStack {
         ProjectList(
-          title: "TODO",
-          projects: store.projects
+          store: store,
+          title: "TODO"
         )
         
         ProjectList(
-          title: "DOING",
-          projects: store.projects
+          store: store,
+          title: "DOING"
         )
                 
         ProjectList(
-          title: "DONE",
-          projects: store.projects
+          store: store,
+          title: "DONE"
         )
       }
       .background(Color(.quaternarySystemFill))
@@ -47,7 +47,7 @@ struct ProjectsView: View {
       }
     }
     .sheet(
-      item: $store.scope(state: \.addProject, action: \.addProject)
+      item: $store.scope(state: \.updateProject, action: \.updateProject)
     ) { projectDetailStore in
       ProjectDetailView(store: projectDetailStore)
     }
