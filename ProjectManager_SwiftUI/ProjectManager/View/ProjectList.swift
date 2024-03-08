@@ -11,9 +11,13 @@ import SwiftUI
 struct ProjectList: View {
   
   @Bindable
-  var store: StoreOf<ProjectsFeature>
+  private var store: StoreOf<ProjectsFeature>
+  private let title: String
   
-  let title: String
+  init(store: StoreOf<ProjectsFeature>, title: String) {
+    self.store = store
+    self.title = title
+  }
   
   var body: some View {
     VStack {

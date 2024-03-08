@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ProjectRow: View {
   
-  let project: Project
+  private let project: Project
+  
+  init(project: Project) {
+    self.project = project
+  }
   
   var body: some View {
     VStack(alignment: .leading) {

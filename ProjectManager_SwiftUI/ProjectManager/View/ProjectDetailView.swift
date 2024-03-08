@@ -11,7 +11,11 @@ import SwiftUI
 struct ProjectDetailView: View {
   
   @Bindable 
-  var store: StoreOf<ProjectDetailFeature>
+  private var store: StoreOf<ProjectDetailFeature>
+  
+  init(store: StoreOf<ProjectDetailFeature>) {
+    self.store = store
+  }
   
   var body: some View {
     NavigationStack {
