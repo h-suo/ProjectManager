@@ -25,7 +25,6 @@ struct ProjectRow: View {
       
       Text(project.deadline, style: .date)
     }
-    .background(.white)
   }
 }
 
