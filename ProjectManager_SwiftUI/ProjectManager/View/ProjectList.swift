@@ -12,21 +12,21 @@ struct ProjectList: View {
   
   @Bindable
   private var store: StoreOf<ProjectsFeature>
-  private let title: String
+  private let state: ProjectState
   
-  init(store: StoreOf<ProjectsFeature>, title: String) {
+  init(store: StoreOf<ProjectsFeature>, state: ProjectState) {
     self.store = store
-    self.title = title
+    self.state = state
   }
   
   var body: some View {
     VStack {
       VStack(alignment: .leading) {
         HStack {
-          Text(title)
+          Text(state.rawValue)
             .font(.title)
           
-          Text("\(store.projects.count)")
+          Text("\(filterProjects.count)")
             .font(.title)
             .foregroundStyle(.white)
             .padding([.all], 8)
@@ -39,7 +39,7 @@ struct ProjectList: View {
       }
       .background(Color(.quaternarySystemFill))
       
-      List(store.projects) { project in
+      List(filterProjects) { project in
         Button {
           store.send(.projectRowSelected(project))
         } label: {
@@ -51,10 +51,14 @@ struct ProjectList: View {
           }
         }
       }
-      .animation(.easeIn, value: store.projects)
+      .animation(.easeIn, value: filterProjects)
       .background(.white)
       .listStyle(.plain)
     }
+  }
+  
+  private var filterProjects: IdentifiedArrayOf<Project> {
+    return store.projects.filter { $0.state == state }
   }
 }
 
@@ -73,6 +77,6 @@ struct ProjectList: View {
       ),
       reducer: { ProjectsFeature() }
     ),
-    title: "DOING"
+    state: .todo
   )
 }

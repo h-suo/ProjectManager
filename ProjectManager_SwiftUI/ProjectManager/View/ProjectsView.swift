@@ -22,17 +22,17 @@ struct ProjectsView: View {
       HStack {
         ProjectList(
           store: store,
-          title: "TODO"
+          state: .todo
         )
         
         ProjectList(
           store: store,
-          title: "DOING"
+          state: .doing
         )
                 
         ProjectList(
           store: store,
-          title: "DONE"
+          state: .done
         )
       }
       .background(Color(.quaternarySystemFill))
@@ -69,6 +69,14 @@ struct ProjectsView: View {
           Project(title: "Title", body: "body", deadline: Date()),
           Project(title: "Title", body: "body", deadline: Date()),
           Project(title: "Title", body: "body", deadline: Date()),
+          Project(title: "Title", body: "body", deadline: Date(), state: .doing),
+          Project(title: "Title", body: "body", deadline: Date(), state: .doing),
+          Project(title: "Title", body: "body", deadline: Date(), state: .doing),
+          Project(title: "Title", body: "body", deadline: Date(), state: .doing),
+          Project(title: "Title", body: "body", deadline: Date(), state: .doing),
+          Project(title: "Title", body: "body", deadline: Date(), state: .done),
+          Project(title: "Title", body: "body", deadline: Date(), state: .done),
+          Project(title: "Title", body: "body", deadline: Date(), state: .done),
         ]
       ),
       reducer: { ProjectsFeature() }
