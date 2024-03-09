@@ -8,7 +8,7 @@
 import Foundation
 
 enum ProjectState: String, CaseIterable {
-  case toDo = "TODO"
+  case todo = "TODO"
   case doing = "DOING"
   case done = "DONE"
 }
@@ -25,7 +25,7 @@ struct Project: Equatable, Identifiable {
     title: String,
     body: String,
     deadline: Date,
-    state: ProjectState = .toDo
+    state: ProjectState = .todo
   ) {
     self.id = id
     self.title = title
