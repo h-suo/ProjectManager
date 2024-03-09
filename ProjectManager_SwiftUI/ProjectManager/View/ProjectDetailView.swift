@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ProjectDetailView: View {
   
-  @Bindable 
+  @Bindable
   private var store: StoreOf<ProjectDetailFeature>
   
   init(store: StoreOf<ProjectDetailFeature>) {
@@ -20,8 +20,16 @@ struct ProjectDetailView: View {
   var body: some View {
     NavigationStack {
       VStack(alignment: .center) {
+        Picker("", selection: $store.project.state.sending(\.setState)) {
+          ForEach(ProjectState.allCases, id: \.self) { state in
+            Text(state.rawValue)
+          }
+        }
+        .pickerStyle(SegmentedPickerStyle())
+        .padding([.top, .bottom], 16)
+        
         TextField("Title", text: $store.project.title.sending(\.setTitle))
-          .border(.black, width: 0.5)
+          .textFieldStyle(.roundedBorder)
           .font(.title3)
         
         DatePicker(
@@ -29,14 +37,17 @@ struct ProjectDetailView: View {
           selection: $store.project.deadline.sending(\.setDeadLine),
           displayedComponents: .date
         )
-          .datePickerStyle(.wheel)
-          .frame(width: 0)
+        .datePickerStyle(.wheel)
+        .frame(width: 0)
         
         TextEditor(text: $store.project.body.sending(\.setBody))
-          .border(.black, width: 0.5)
+          .overlay {
+            RoundedRectangle(cornerRadius: 8)
+              .stroke(.placeholder, lineWidth: 0.5)
+          }
       }
       .padding()
-      .navigationTitle("TODO")
+      .navigationTitle("Add Project")
       .navigationBarTitleDisplayMode(.inline)
       .toolbarBackground(Color(.systemFill), for: .navigationBar)
       .toolbarBackground(.visible, for: .navigationBar)
