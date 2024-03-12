@@ -18,6 +18,7 @@
 		458BA48C2B96FBA500FDF1C6 /* ProjectsFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458BA48B2B96FBA500FDF1C6 /* ProjectsFeature.swift */; };
 		458BA48E2B97337900FDF1C6 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458BA48D2B97337900FDF1C6 /* ProjectList.swift */; };
 		458BA4902B9733A300FDF1C6 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458BA48F2B9733A300FDF1C6 /* ProjectRow.swift */; };
+		45A94E3D2BA031E800AF7D29 /* Calendar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A94E3C2BA031E800AF7D29 /* Calendar+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		458BA48B2B96FBA500FDF1C6 /* ProjectsFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectsFeature.swift; sourceTree = "<group>"; };
 		458BA48D2B97337900FDF1C6 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		458BA48F2B9733A300FDF1C6 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
+		45A94E3C2BA031E800AF7D29 /* Calendar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				458BA4722B96D6F600FDF1C6 /* Feature */,
 				458BA4732B96D6FD00FDF1C6 /* View */,
 				458BA4862B96F63D00FDF1C6 /* Environment */,
+				45A94E3A2BA031BE00AF7D29 /* Util */,
 				458BA4852B96F62200FDF1C6 /* Resource */,
 				4569CF962B95A55A0008A3B4 /* Preview Content */,
 			);
@@ -127,6 +130,22 @@
 			children = (
 			);
 			path = Environment;
+			sourceTree = "<group>";
+		};
+		45A94E3A2BA031BE00AF7D29 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				45A94E3B2BA031D900AF7D29 /* Extenstion */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		45A94E3B2BA031D900AF7D29 /* Extenstion */ = {
+			isa = PBXGroup;
+			children = (
+				45A94E3C2BA031E800AF7D29 /* Calendar+.swift */,
+			);
+			path = Extenstion;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +226,7 @@
 			files = (
 				458BA4902B9733A300FDF1C6 /* ProjectRow.swift in Sources */,
 				456027702B997978003AED64 /* ProjectDetailFeature.swift in Sources */,
+				45A94E3D2BA031E800AF7D29 /* Calendar+.swift in Sources */,
 				4569CF932B95A5580008A3B4 /* ProjectsView.swift in Sources */,
 				458BA48E2B97337900FDF1C6 /* ProjectList.swift in Sources */,
 				4569CF912B95A5580008A3B4 /* ProjectManagerApp.swift in Sources */,
