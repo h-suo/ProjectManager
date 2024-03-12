@@ -24,6 +24,7 @@ struct ProjectRow: View {
         .foregroundStyle(.gray)
       
       Text(project.deadline, style: .date)
+        .foregroundStyle(project.isExceed ? .red : .black)
     }
   }
 }

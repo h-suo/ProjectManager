@@ -19,6 +19,7 @@ struct Project: Equatable, Identifiable {
   var body: String
   var deadline: Date
   var state: ProjectState
+  var isExceed: Bool { Calendar.compareDate(deadline) ?? false }
   
   init(
     id: UUID = UUID(),
