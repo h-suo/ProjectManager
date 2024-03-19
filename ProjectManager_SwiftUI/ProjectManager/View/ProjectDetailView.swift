@@ -29,15 +29,15 @@ struct ProjectDetailView: View {
         .padding([.top, .bottom], 16)
         
         TextField("Title", text: $store.project.title.sending(\.setTitle))
-          .textFieldStyle(.roundedBorder)
-          .font(.title3)
+          .textFieldStyle(RoundedBorderTextFieldStyle())
+          .font(.title2)
         
         DatePicker(
           "",
           selection: $store.project.deadline.sending(\.setDeadLine),
           displayedComponents: .date
         )
-        .datePickerStyle(.wheel)
+        .datePickerStyle(WheelDatePickerStyle())
         .frame(width: 0)
         
         TextEditor(text: $store.project.body.sending(\.setBody))

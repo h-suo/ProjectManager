@@ -53,7 +53,7 @@ struct ProjectList: View {
       }
       .animation(.easeIn, value: filterProjects)
       .background(.white)
-      .listStyle(.plain)
+      .listStyle(PlainListStyle())
     }
   }
   
