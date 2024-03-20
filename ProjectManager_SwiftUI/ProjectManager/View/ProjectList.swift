@@ -14,6 +14,10 @@ struct ProjectList: View {
   private var store: StoreOf<ProjectsFeature>
   private let state: ProjectState
   
+  private var filterProjects: IdentifiedArrayOf<Project> {
+    return store.projects.filter { $0.projectState == state }
+  }
+  
   init(store: StoreOf<ProjectsFeature>, state: ProjectState) {
     self.store = store
     self.state = state
@@ -55,10 +59,6 @@ struct ProjectList: View {
       .background(.white)
       .listStyle(PlainListStyle())
     }
-  }
-  
-  private var filterProjects: IdentifiedArrayOf<Project> {
-    return store.projects.filter { $0.projectState == state }
   }
 }
 
