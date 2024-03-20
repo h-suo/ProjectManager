@@ -6,29 +6,29 @@
 //
 
 import Foundation
+import SwiftData
 
-enum ProjectState: String, CaseIterable {
+enum ProjectState: String, CaseIterable, Codable {
   case todo = "TODO"
   case doing = "DOING"
   case done = "DONE"
 }
 
-struct Project: Equatable, Identifiable {
-  let id: UUID
+@Model
+final class Project {
+  @Attribute(.unique)
+  var deadline: Date
   var title: String
   var body: String
-  var deadline: Date
   var projectState: ProjectState
   var isExceed: Bool { Calendar.compareDate(deadline) ?? false }
   
   init(
-    id: UUID = UUID(),
     title: String,
     body: String,
     deadline: Date,
     projectState: ProjectState = .todo
   ) {
-    self.id = id
     self.title = title
     self.body = body
     self.deadline = deadline
