@@ -21,9 +21,18 @@ struct ProjectDatabase {
   var add: (Project) throws -> Void
   var delete: (Project) throws -> Void
   
-  enum DatabaseError: Error {
+  enum DatabaseError: LocalizedError {
     case addFailed
     case deleteFailed
+    
+    var errorDescription: String? {
+      switch self {
+      case .addFailed:
+        return "Addition failed."
+      case .deleteFailed:
+        return "Deletion failed."
+      }
+    }
   }
 }
 
