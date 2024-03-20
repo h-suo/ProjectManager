@@ -58,6 +58,7 @@ struct ProjectsView: View {
     ) { projectDetailStore in
       ProjectDetailView(store: projectDetailStore)
     }
+    .alert($store.scope(state: \.alert, action: \.alert))
   }
 }
 

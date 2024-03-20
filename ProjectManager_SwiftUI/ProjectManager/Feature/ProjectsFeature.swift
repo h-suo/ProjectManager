@@ -14,6 +14,7 @@ struct ProjectsFeature {
   @ObservableState
   struct State: Equatable {
     var projects: IdentifiedArrayOf<Project> = []
+    @Presents var alert: AlertState<Action.Alert>?
     @Presents var updateProject: ProjectDetailFeature.State?
   }
   
@@ -22,7 +23,12 @@ struct ProjectsFeature {
     case addButtonTapped
     case projectRowSelected(Project)
     case projectRowDeleted(Project)
+    case alert(PresentationAction<Alert>)
     case updateProject(PresentationAction<ProjectDetailFeature.Action>)
+    
+    enum Alert: Equatable {
+      case confirmError
+    }
   }
   
   @Dependency(\.projectDatabase) private var database
@@ -34,7 +40,15 @@ struct ProjectsFeature {
         do {
           let projects = try database.fetch()
           state.projects = IdentifiedArray(uniqueElements: projects)
-        } catch {}
+        } catch {
+          state.alert = AlertState {
+            TextState(error.localizedDescription)
+          } actions: {
+            ButtonState(role: .cancel, action: .confirmError) {
+              TextState("OK")
+            }
+          }
+        }
         return .none
       case .addButtonTapped:
         state.updateProject = ProjectDetailFeature.State(
@@ -53,23 +67,45 @@ struct ProjectsFeature {
       case let .projectRowDeleted(project):
         do {
           try database.delete(project)
-        } catch {}
+        } catch {
+          state.alert = AlertState {
+            TextState(error.localizedDescription)
+          } actions: {
+            ButtonState(role: .cancel, action: .confirmError) {
+              TextState("OK")
+            }
+          }
+        }
         return .run { @MainActor send in
           send(.onAppear, animation: .easeIn)
         }
       case let .updateProject(.presented(.delegate(.saveProject(project)))):
         do {
           try database.add(project)
-        } catch {}
+        } catch {
+          state.alert = AlertState {
+            TextState(error.localizedDescription)
+          } actions: {
+            ButtonState(role: .cancel, action: .confirmError) {
+              TextState("OK")
+            }
+          }
+        }
         return .run { @MainActor send in
           send(.onAppear, animation: .easeIn)
         }
       case .updateProject:
+        return .none
+      case .alert(.presented(.confirmError)):
+        state.alert = nil
+        return .none
+      case .alert:
         return .none
       }
     }
     .ifLet(\.$updateProject, action: \.updateProject) {
       ProjectDetailFeature()
     }
+    .ifLet(\.$alert, action: \.alert)
   }
 }
