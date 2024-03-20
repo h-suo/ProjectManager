@@ -10,9 +10,7 @@ import Foundation
 
 @Reducer
 struct ProjectDetailFeature {
-  
-  @Dependency(\.dismiss) var dismiss
-  
+    
   @ObservableState
   struct State: Equatable {
     var project: Project
@@ -31,6 +29,8 @@ struct ProjectDetailFeature {
       case saveProject(Project)
     }
   }
+  
+  @Dependency(\.dismiss) private var dismiss
   
   var body: some Reducer<State, Action> {
     Reduce { state, action in
