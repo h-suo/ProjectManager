@@ -33,6 +33,16 @@ struct ProjectsFeature {
   
   @Dependency(\.projectDatabase) private var database
   
+  private func errorAlertState(_ error: Error) -> AlertState<Action.Alert> {
+    return AlertState {
+      TextState(error.localizedDescription)
+    } actions: {
+      ButtonState(role: .cancel, action: .confirmError) {
+        TextState("OK")
+      }
+    }
+  }
+  
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
@@ -41,13 +51,7 @@ struct ProjectsFeature {
           let projects = try database.fetch()
           state.projects = IdentifiedArray(uniqueElements: projects)
         } catch {
-          state.alert = AlertState {
-            TextState(error.localizedDescription)
-          } actions: {
-            ButtonState(role: .cancel, action: .confirmError) {
-              TextState("OK")
-            }
-          }
+          state.alert = errorAlertState(error)
         }
         return .none
       case .addButtonTapped:
@@ -68,13 +72,7 @@ struct ProjectsFeature {
         do {
           try database.delete(project)
         } catch {
-          state.alert = AlertState {
-            TextState(error.localizedDescription)
-          } actions: {
-            ButtonState(role: .cancel, action: .confirmError) {
-              TextState("OK")
-            }
-          }
+          state.alert = errorAlertState(error)
         }
         return .run { @MainActor send in
           send(.onAppear, animation: .easeIn)
@@ -83,13 +81,7 @@ struct ProjectsFeature {
         do {
           try database.add(project)
         } catch {
-          state.alert = AlertState {
-            TextState(error.localizedDescription)
-          } actions: {
-            ButtonState(role: .cancel, action: .confirmError) {
-              TextState("OK")
-            }
-          }
+          state.alert = errorAlertState(error)
         }
         return .run { @MainActor send in
           send(.onAppear, animation: .easeIn)
