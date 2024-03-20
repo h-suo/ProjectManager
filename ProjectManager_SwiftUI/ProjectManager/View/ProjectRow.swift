@@ -35,7 +35,7 @@ struct ProjectRow: View {
       title: "Test",
       body: "TestBody",
       deadline: Date(),
-      state: .doing
+      projectState: .doing
     )
   )
 }

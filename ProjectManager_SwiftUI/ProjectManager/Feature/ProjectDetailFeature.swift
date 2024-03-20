@@ -25,7 +25,7 @@ struct ProjectDetailFeature {
     case setTitle(String)
     case setBody(String)
     case setDeadLine(Date)
-    case setState(ProjectState)
+    case setProjectState(ProjectState)
     
     enum Delegate: Equatable {
       case saveProject(Project)
@@ -53,8 +53,8 @@ struct ProjectDetailFeature {
       case let .setDeadLine(deadLine):
         state.project.deadline = deadLine
         return .none
-      case let .setState(projectState):
-        state.project.state = projectState
+      case let .setProjectState(projectState):
+        state.project.projectState = projectState
         return .none
       }
     }

@@ -58,7 +58,7 @@ struct ProjectList: View {
   }
   
   private var filterProjects: IdentifiedArrayOf<Project> {
-    return store.projects.filter { $0.state == state }
+    return store.projects.filter { $0.projectState == state }
   }
 }
 

@@ -18,7 +18,7 @@ struct Project: Equatable, Identifiable {
   var title: String
   var body: String
   var deadline: Date
-  var state: ProjectState
+  var projectState: ProjectState
   var isExceed: Bool { Calendar.compareDate(deadline) ?? false }
   
   init(
@@ -26,12 +26,12 @@ struct Project: Equatable, Identifiable {
     title: String,
     body: String,
     deadline: Date,
-    state: ProjectState = .todo
+    projectState: ProjectState = .todo
   ) {
     self.id = id
     self.title = title
     self.body = body
     self.deadline = deadline
-    self.state = state
+    self.projectState = projectState
   }
 }

@@ -20,7 +20,7 @@ struct ProjectDetailView: View {
   var body: some View {
     NavigationStack {
       VStack(alignment: .center) {
-        Picker("", selection: $store.project.state.sending(\.setState)) {
+        Picker("", selection: $store.project.projectState.sending(\.setProjectState)) {
           ForEach(ProjectState.allCases, id: \.self) { state in
             Text(state.rawValue)
           }
