@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		454BD0392BA9870C00B89155 /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BD0382BA9870C00B89155 /* DataBase.swift */; };
 		456027702B997978003AED64 /* ProjectDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4560276F2B997978003AED64 /* ProjectDetailFeature.swift */; };
 		456027722B997AE6003AED64 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456027712B997AE6003AED64 /* ProjectDetailView.swift */; };
 		4569CF912B95A5580008A3B4 /* ProjectManagerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4569CF902B95A5580008A3B4 /* ProjectManagerApp.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		454BD0382BA9870C00B89155 /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		4560276F2B997978003AED64 /* ProjectDetailFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailFeature.swift; sourceTree = "<group>"; };
 		456027712B997AE6003AED64 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
 		4569CF8D2B95A5580008A3B4 /* ProjectManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProjectManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +130,7 @@
 		458BA4862B96F63D00FDF1C6 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
+				454BD0382BA9870C00B89155 /* DataBase.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				45A94E3D2BA031E800AF7D29 /* Calendar+.swift in Sources */,
 				4569CF932B95A5580008A3B4 /* ProjectsView.swift in Sources */,
 				458BA48E2B97337900FDF1C6 /* ProjectList.swift in Sources */,
+				454BD0392BA9870C00B89155 /* DataBase.swift in Sources */,
 				4569CF912B95A5580008A3B4 /* ProjectManagerApp.swift in Sources */,
 				458BA48C2B96FBA500FDF1C6 /* ProjectsFeature.swift in Sources */,
 				458BA48A2B96FA5B00FDF1C6 /* Project.swift in Sources */,
