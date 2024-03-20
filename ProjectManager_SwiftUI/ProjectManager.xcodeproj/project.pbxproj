@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		454BD0372BA97B4F00B89155 /* ProjectDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BD0362BA97B4F00B89155 /* ProjectDataBase.swift */; };
 		454BD0392BA9870C00B89155 /* DataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BD0382BA9870C00B89155 /* DataBase.swift */; };
 		456027702B997978003AED64 /* ProjectDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4560276F2B997978003AED64 /* ProjectDetailFeature.swift */; };
 		456027722B997AE6003AED64 /* ProjectDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 456027712B997AE6003AED64 /* ProjectDetailView.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		454BD0362BA97B4F00B89155 /* ProjectDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDataBase.swift; sourceTree = "<group>"; };
 		454BD0382BA9870C00B89155 /* DataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBase.swift; sourceTree = "<group>"; };
 		4560276F2B997978003AED64 /* ProjectDetailFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailFeature.swift; sourceTree = "<group>"; };
 		456027712B997AE6003AED64 /* ProjectDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailView.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				454BD0382BA9870C00B89155 /* DataBase.swift */,
+				454BD0362BA97B4F00B89155 /* ProjectDataBase.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -230,6 +233,7 @@
 				458BA4902B9733A300FDF1C6 /* ProjectRow.swift in Sources */,
 				456027702B997978003AED64 /* ProjectDetailFeature.swift in Sources */,
 				45A94E3D2BA031E800AF7D29 /* Calendar+.swift in Sources */,
+				454BD0372BA97B4F00B89155 /* ProjectDataBase.swift in Sources */,
 				4569CF932B95A5580008A3B4 /* ProjectsView.swift in Sources */,
 				458BA48E2B97337900FDF1C6 /* ProjectList.swift in Sources */,
 				454BD0392BA9870C00B89155 /* DataBase.swift in Sources */,
