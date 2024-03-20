@@ -11,8 +11,9 @@ import SwiftUI
 
 @main
 struct ProjectManagerApp: App {
-  @Dependency(\.database) var databaseService
-  var modelContext: ModelContext {
+  
+  @Dependency(\.database) private var databaseService
+  private var modelContext: ModelContext {
     do {
       return try self.databaseService.context()
     } catch {
