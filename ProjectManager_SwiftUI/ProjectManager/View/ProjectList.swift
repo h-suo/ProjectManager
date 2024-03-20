@@ -47,7 +47,7 @@ struct ProjectList: View {
         }
         .swipeActions {          
           Button("Delete", role: .destructive) {
-            store.send(.projectRowDeleted(project.id))
+            store.send(.projectRowDeleted(project))
           }
         }
       }

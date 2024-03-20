@@ -50,6 +50,9 @@ struct ProjectsView: View {
         }
       }
     }
+    .onAppear {
+      store.send(.onAppear)
+    }
     .sheet(
       item: $store.scope(state: \.updateProject, action: \.updateProject)
     ) { projectDetailStore in

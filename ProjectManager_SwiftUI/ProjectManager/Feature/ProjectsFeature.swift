@@ -18,15 +18,24 @@ struct ProjectsFeature {
   }
   
   enum Action {
+    case onAppear
     case addButtonTapped
     case projectRowSelected(Project)
-    case projectRowDeleted(Project.ID)
+    case projectRowDeleted(Project)
     case updateProject(PresentationAction<ProjectDetailFeature.Action>)
   }
+  
+  @Dependency(\.projectDatabase) private var database
   
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
+      case .onAppear:
+        do {
+          let projects = try database.fetch()
+          state.projects = IdentifiedArray(uniqueElements: projects)
+        } catch {}
+        return .none
       case .addButtonTapped:
         state.updateProject = ProjectDetailFeature.State(
           project: Project(
@@ -41,12 +50,20 @@ struct ProjectsFeature {
           project: project
         )
         return .none
-      case let .projectRowDeleted(id):
-        state.projects.remove(id: id)
-        return .none
+      case let .projectRowDeleted(project):
+        do {
+          try database.delete(project)
+        } catch {}
+        return .run { @MainActor send in
+          send(.onAppear, animation: .easeIn)
+        }
       case let .updateProject(.presented(.delegate(.saveProject(project)))):
-        state.projects.updateOrAppend(project)
-        return .none
+        do {
+          try database.add(project)
+        } catch {}
+        return .run { @MainActor send in
+          send(.onAppear, animation: .easeIn)
+        }
       case .updateProject:
         return .none
       }
