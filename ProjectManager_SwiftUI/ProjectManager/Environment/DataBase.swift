@@ -5,8 +5,8 @@
 //  Created by Erick on 3/19/24.
 //
 
-import SwiftData
 import Dependencies
+import SwiftData
 
 extension DependencyValues {
   var database: Database {

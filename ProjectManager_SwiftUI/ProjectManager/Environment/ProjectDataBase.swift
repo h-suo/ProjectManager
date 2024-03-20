@@ -5,9 +5,9 @@
 //  Created by Erick on 3/19/24.
 //
 
+import Dependencies
 import Foundation
 import SwiftData
-import Dependencies
 
 extension DependencyValues {
   var projectDatabase: ProjectDatabase {
