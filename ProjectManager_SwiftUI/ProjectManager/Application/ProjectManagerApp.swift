@@ -6,10 +6,20 @@
 //
 
 import ComposableArchitecture
+import SwiftData
 import SwiftUI
 
 @main
 struct ProjectManagerApp: App {
+  @Dependency(\.database) var databaseService
+  var modelContext: ModelContext {
+    do {
+      return try self.databaseService.context()
+    } catch {
+      fatalError(error.localizedDescription)
+    }
+  }
+  
   var body: some Scene {
     WindowGroup {
       ProjectsView(
@@ -18,6 +28,7 @@ struct ProjectManagerApp: App {
           reducer: { ProjectsFeature() }
         )
       )
+      .modelContext(modelContext)
     }
   }
 }
