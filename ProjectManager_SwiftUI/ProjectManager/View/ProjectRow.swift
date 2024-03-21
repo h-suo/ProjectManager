@@ -5,6 +5,7 @@
 //  Created by Erick on 3/5/24.
 //
 
+import SwiftData
 import SwiftUI
 
 struct ProjectRow: View {
@@ -30,7 +31,13 @@ struct ProjectRow: View {
 }
 
 #Preview {
-  ProjectRow(
+  let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+  let container = try! ModelContainer(
+    for: Project.self,
+    configurations: configuration
+  )
+  
+  return ProjectRow(
     project: Project(
       title: "Test",
       body: "TestBody",
@@ -38,4 +45,5 @@ struct ProjectRow: View {
       projectState: .doing
     )
   )
+  .modelContainer(container)
 }

@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import SwiftData
 import SwiftUI
 
 struct ProjectDetailView: View {
@@ -69,16 +70,24 @@ struct ProjectDetailView: View {
 }
 
 #Preview {
-  ProjectDetailView(
+  let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+  let container = try! ModelContainer(
+    for: Project.self,
+    configurations: configuration
+  )
+  
+  return ProjectDetailView(
     store: Store(
       initialState: ProjectDetailFeature.State(
         project: Project(
-          title: "Title",
-          body: "Body",
-          deadline: Date()
+          title: "Test",
+          body: "TestBody",
+          deadline: Date(),
+          projectState: .doing
         )
       ),
       reducer: { ProjectDetailFeature() }
     )
   )
+  .modelContainer(container)
 }

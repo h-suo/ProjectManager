@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import SwiftData
 import SwiftUI
 
 struct ProjectList: View {
@@ -49,7 +50,7 @@ struct ProjectList: View {
         } label: {
           ProjectRow(project: project)
         }
-        .swipeActions {          
+        .swipeActions {
           Button("Delete", role: .destructive) {
             store.send(.projectRowDeleted(project))
           }
@@ -63,7 +64,13 @@ struct ProjectList: View {
 }
 
 #Preview {
-  ProjectList(
+  let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+  let container = try! ModelContainer(
+    for: Project.self,
+    configurations: configuration
+  )
+  
+  return ProjectList(
     store: Store(
       initialState: ProjectsFeature.State(
         projects: [
@@ -79,4 +86,5 @@ struct ProjectList: View {
     ),
     state: .todo
   )
+  .modelContainer(container)
 }

@@ -6,6 +6,7 @@
 //
 
 import ComposableArchitecture
+import SwiftData
 import SwiftUI
 
 struct ProjectsView: View {
@@ -29,7 +30,7 @@ struct ProjectsView: View {
           store: store,
           state: .doing
         )
-                
+        
         ProjectList(
           store: store,
           state: .done
@@ -63,27 +64,17 @@ struct ProjectsView: View {
 }
 
 #Preview {
-  ProjectsView(
+  let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+  let container = try! ModelContainer(
+    for: Project.self,
+    configurations: configuration
+  )
+  
+  return ProjectsView(
     store: Store(
-      initialState: ProjectsFeature.State(
-        projects: [
-          Project(title: "Title", body: "body", deadline: Date()),
-          Project(title: "Title", body: "body", deadline: Date()),
-          Project(title: "Title", body: "body", deadline: Date()),
-          Project(title: "Title", body: "body", deadline: Date()),
-          Project(title: "Title", body: "body", deadline: Date()),
-          Project(title: "Title", body: "body", deadline: Date()),
-          Project(title: "Title", body: "body", deadline: Date(), projectState: .doing),
-          Project(title: "Title", body: "body", deadline: Date(), projectState: .doing),
-          Project(title: "Title", body: "body", deadline: Date(), projectState: .doing),
-          Project(title: "Title", body: "body", deadline: Date(), projectState: .doing),
-          Project(title: "Title", body: "body", deadline: Date(), projectState: .doing),
-          Project(title: "Title", body: "body", deadline: Date(), projectState: .done),
-          Project(title: "Title", body: "body", deadline: Date(), projectState: .done),
-          Project(title: "Title", body: "body", deadline: Date(), projectState: .done),
-        ]
-      ),
+      initialState: ProjectsFeature.State(),
       reducer: { ProjectsFeature() }
     )
   )
+  .modelContainer(container)
 }
