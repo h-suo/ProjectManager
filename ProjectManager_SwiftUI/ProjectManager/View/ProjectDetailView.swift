@@ -71,8 +71,8 @@ struct ProjectDetailView: View {
         }
         
         ToolbarItem {
-          Button("Save") {
-            store.send(.saveButtonTapped)
+          Button("done") {
+            store.send(.doneButtonTapped)
           }
         }
       }

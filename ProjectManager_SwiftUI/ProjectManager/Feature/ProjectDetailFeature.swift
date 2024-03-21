@@ -30,7 +30,7 @@ struct ProjectDetailFeature {
   enum Action {
     case editButtonTapped
     case cancelButtonTapped
-    case saveButtonTapped
+    case doneButtonTapped
     case delegate(Delegate)
     case setTitle(String)
     case setBody(String)
@@ -52,7 +52,7 @@ struct ProjectDetailFeature {
         return .none
       case .cancelButtonTapped:
         return .run { _ in await self.dismiss() }
-      case .saveButtonTapped:
+      case .doneButtonTapped:
         return .run { [project = state.project] send in
           await send(.delegate(.saveProject(project)))
           await self.dismiss()
