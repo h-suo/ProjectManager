@@ -60,12 +60,14 @@ struct ProjectsFeature {
             title: "",
             body: "",
             deadline: Date()
-          )
+          ),
+          isNewProject: true
         )
         return .none
       case let .projectRowSelected(project):
         state.updateProject = ProjectDetailFeature.State(
-          project: project
+          project: project,
+          isNewProject: false
         )
         return .none
       case let .projectRowDeleted(project):

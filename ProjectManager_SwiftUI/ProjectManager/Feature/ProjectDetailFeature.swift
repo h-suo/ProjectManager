@@ -14,9 +14,21 @@ struct ProjectDetailFeature {
   @ObservableState
   struct State: Equatable {
     var project: Project
+    var isNewProject: Bool
+    var isDisabled: Bool
+    
+    init(
+      project: Project,
+      isNewProject: Bool
+    ) {
+      self.project = project
+      self.isNewProject = isNewProject
+      self.isDisabled = !isNewProject
+    }
   }
   
   enum Action {
+    case editButtonTapped
     case cancelButtonTapped
     case saveButtonTapped
     case delegate(Delegate)
@@ -35,6 +47,9 @@ struct ProjectDetailFeature {
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
+      case .editButtonTapped:
+        state.isDisabled.toggle()
+        return .none
       case .cancelButtonTapped:
         return .run { _ in await self.dismiss() }
       case .saveButtonTapped:

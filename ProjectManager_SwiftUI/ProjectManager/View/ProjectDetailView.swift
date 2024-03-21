@@ -28,10 +28,12 @@ struct ProjectDetailView: View {
         }
         .pickerStyle(SegmentedPickerStyle())
         .padding([.top, .bottom], 16)
+        .disabled(store.isDisabled)
         
         TextField("Title", text: $store.project.title.sending(\.setTitle))
           .textFieldStyle(RoundedBorderTextFieldStyle())
           .font(.title2)
+          .disabled(store.isDisabled)
         
         DatePicker(
           "",
@@ -40,12 +42,14 @@ struct ProjectDetailView: View {
         )
         .datePickerStyle(WheelDatePickerStyle())
         .frame(width: 0)
+        .disabled(store.isDisabled)
         
         TextEditor(text: $store.project.body.sending(\.setBody))
           .overlay {
             RoundedRectangle(cornerRadius: 8)
               .stroke(.placeholder, lineWidth: 0.5)
           }
+          .disabled(store.isDisabled)
       }
       .padding()
       .navigationTitle("Add Project")
@@ -54,8 +58,15 @@ struct ProjectDetailView: View {
       .toolbarBackground(.visible, for: .navigationBar)
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
-          Button("Cancel") {
-            store.send(.cancelButtonTapped)
+          if store.isNewProject {
+            Button("Cancel") {
+              store.send(.cancelButtonTapped)
+            }
+          } else {
+            Button("Edit") {
+              store.send(.editButtonTapped)
+            }
+            .disabled(!store.isDisabled)
           }
         }
         
@@ -84,7 +95,8 @@ struct ProjectDetailView: View {
           body: "TestBody",
           deadline: Date(),
           projectState: .doing
-        )
+        ),
+        isNewProject: false
       ),
       reducer: { ProjectDetailFeature() }
     )
