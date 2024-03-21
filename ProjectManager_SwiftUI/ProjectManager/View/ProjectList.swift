@@ -19,7 +19,10 @@ struct ProjectList: View {
     return store.projects.filter { $0.projectState == state }
   }
   
-  init(store: StoreOf<ProjectsFeature>, state: ProjectState) {
+  init(
+    store: StoreOf<ProjectsFeature>,
+    state: ProjectState
+  ) {
     self.store = store
     self.state = state
   }
