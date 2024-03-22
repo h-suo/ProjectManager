@@ -63,7 +63,7 @@
 
 ### UML
 
-<Img src = "https://github.com/h-suo/ProjectManager/assets/109963294/e0a2d022-dd15-4a54-8dc2-eb0d974a0f3b" width="800"/>
+<Img src = "https://github.com/h-suo/ProjectManager/assets/109963294/24a18bfb-1325-4a41-b2cd-8852c62a2d99" width="800"/>
 
 <br>
 
