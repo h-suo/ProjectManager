@@ -16,8 +16,7 @@ enum ProjectState: String, CaseIterable, Codable {
 
 @Model
 final class Project {
-  @Attribute(.unique)
-  var deadline: Date
+  @Attribute(.unique) var deadline: Date
   var title: String
   var body: String
   var projectState: ProjectState

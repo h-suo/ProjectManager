@@ -10,11 +10,8 @@ import SwiftData
 import SwiftUI
 
 struct ProjectList: View {
-  
-  @Bindable
-  private var store: StoreOf<ProjectsFeature>
+  @Bindable private var store: StoreOf<ProjectsFeature>
   private let state: ProjectState
-  
   private var filterProjects: IdentifiedArrayOf<Project> {
     return store.projects.filter { $0.projectState == state }
   }

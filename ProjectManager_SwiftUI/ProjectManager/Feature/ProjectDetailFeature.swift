@@ -10,7 +10,6 @@ import Foundation
 
 @Reducer
 struct ProjectDetailFeature {
-    
   @ObservableState
   struct State: Equatable {
     var project: Project

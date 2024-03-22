@@ -9,7 +9,6 @@ import SwiftData
 import SwiftUI
 
 struct ProjectRow: View {
-  
   private let project: Project
   
   init(project: Project) {

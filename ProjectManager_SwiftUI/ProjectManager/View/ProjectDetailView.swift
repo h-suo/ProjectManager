@@ -10,9 +10,7 @@ import SwiftData
 import SwiftUI
 
 struct ProjectDetailView: View {
-  
-  @Bindable
-  private var store: StoreOf<ProjectDetailFeature>
+  @Bindable private var store: StoreOf<ProjectDetailFeature>
   
   init(store: StoreOf<ProjectDetailFeature>) {
     self.store = store

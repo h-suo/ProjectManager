@@ -10,7 +10,6 @@ import Foundation
 
 @Reducer
 struct ProjectsFeature {
-  
   @ObservableState
   struct State: Equatable {
     var projects: IdentifiedArrayOf<Project> = []

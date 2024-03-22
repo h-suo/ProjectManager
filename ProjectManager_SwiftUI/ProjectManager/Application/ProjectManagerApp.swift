@@ -11,7 +11,6 @@ import SwiftUI
 
 @main
 struct ProjectManagerApp: App {
-  
   @Dependency(\.database) private var databaseService
   private var modelContext: ModelContext {
     do {

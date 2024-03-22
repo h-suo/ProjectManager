@@ -8,7 +8,6 @@
 import Foundation
 
 extension Calendar {
-  
   static func compareDate(_ lhs: Date, with rhs: Date = Date()) -> Bool? {
     let calendar = Calendar.current
     let lhsDateComponents = calendar.dateComponents([.year, .month, .day], from: lhs)
