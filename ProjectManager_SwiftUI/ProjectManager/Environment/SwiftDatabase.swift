@@ -1,5 +1,5 @@
 //
-//  ProjectDataBase.swift
+//  SwiftDatabase.swift
 //  ProjectManager
 //
 //  Created by Erick on 3/19/24.
@@ -10,13 +10,13 @@ import Foundation
 import SwiftData
 
 extension DependencyValues {
-  var projectDatabase: ProjectDatabase {
-    get { self[ProjectDatabase.self] }
-    set { self[ProjectDatabase.self] = newValue }
+  var swiftDatabase: SwiftDatabase {
+    get { self[SwiftDatabase.self] }
+    set { self[SwiftDatabase.self] = newValue }
   }
 }
 
-struct ProjectDatabase {
+struct SwiftDatabase {
   var fetch: () throws -> [Project]
   var add: (Project) throws -> Void
   var delete: (Project) throws -> Void
@@ -36,8 +36,8 @@ struct ProjectDatabase {
   }
 }
 
-extension ProjectDatabase: DependencyKey {
-  static var liveValue: ProjectDatabase = Self(
+extension SwiftDatabase: DependencyKey {
+  static var liveValue: SwiftDatabase = Self(
     fetch: {
       do {
         @Dependency(\.database.context) var context

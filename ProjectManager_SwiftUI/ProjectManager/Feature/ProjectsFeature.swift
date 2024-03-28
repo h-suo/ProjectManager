@@ -30,7 +30,7 @@ struct ProjectsFeature {
     }
   }
   
-  @Dependency(\.projectDatabase) private var database
+  @Dependency(\.swiftDatabase) private var database
   
   private func errorAlertState(_ error: Error) -> AlertState<Action.Alert> {
     return AlertState {
