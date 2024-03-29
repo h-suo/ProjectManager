@@ -35,6 +35,7 @@
 		4543112C2BB69141001C3058 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4543112B2BB69141001C3058 /* FirebaseStorage */; };
 		4543112E2BB69141001C3058 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 4543112D2BB69141001C3058 /* FirebaseStorageCombine-Community */; };
 		454311322BB69AA3001C3058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 454311312BB69AA3001C3058 /* GoogleService-Info.plist */; };
+		454311382BB6A462001C3058 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454311372BB6A462001C3058 /* DatabaseProtocol.swift */; };
 		454BD0372BA97B4F00B89155 /* SwiftDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BD0362BA97B4F00B89155 /* SwiftDatabase.swift */; };
 		454BD0392BA9870C00B89155 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BD0382BA9870C00B89155 /* Database.swift */; };
 		456027702B997978003AED64 /* ProjectDetailFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4560276F2B997978003AED64 /* ProjectDetailFeature.swift */; };
@@ -53,6 +54,7 @@
 
 /* Begin PBXFileReference section */
 		454311312BB69AA3001C3058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		454311372BB6A462001C3058 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		454BD0362BA97B4F00B89155 /* SwiftDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDatabase.swift; sourceTree = "<group>"; };
 		454BD0382BA9870C00B89155 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		4560276F2B997978003AED64 /* ProjectDetailFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectDetailFeature.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 		458BA4862B96F63D00FDF1C6 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
+				454311372BB6A462001C3058 /* DatabaseProtocol.swift */,
 				454BD0382BA9870C00B89155 /* Database.swift */,
 				454BD0362BA97B4F00B89155 /* SwiftDatabase.swift */,
 			);
@@ -316,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				454311382BB6A462001C3058 /* DatabaseProtocol.swift in Sources */,
 				458BA4902B9733A300FDF1C6 /* ProjectRow.swift in Sources */,
 				456027702B997978003AED64 /* ProjectDetailFeature.swift in Sources */,
 				45A94E3D2BA031E800AF7D29 /* Calendar+.swift in Sources */,

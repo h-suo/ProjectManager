@@ -12,7 +12,7 @@ import SwiftUI
 struct ProjectList: View {
   @Bindable private var store: StoreOf<ProjectsFeature>
   private let state: ProjectState
-  private var filterProjects: IdentifiedArrayOf<Project> {
+  private var filterProjects: [Project] {
     return store.projects.filter { $0.projectState == state }
   }
   

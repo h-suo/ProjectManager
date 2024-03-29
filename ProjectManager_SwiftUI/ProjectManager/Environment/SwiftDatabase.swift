@@ -5,6 +5,7 @@
 //  Created by Erick on 3/19/24.
 //
 
+import Combine
 import Dependencies
 import Foundation
 import SwiftData
@@ -16,24 +17,10 @@ extension DependencyValues {
   }
 }
 
-struct SwiftDatabase {
-  var fetch: () throws -> [Project]
-  var add: (Project) throws -> Void
-  var delete: (Project) throws -> Void
-  
-  enum DatabaseError: LocalizedError {
-    case addFailed
-    case deleteFailed
-    
-    var errorDescription: String? {
-      switch self {
-      case .addFailed:
-        return "Addition failed."
-      case .deleteFailed:
-        return "Deletion failed."
-      }
-    }
-  }
+struct SwiftDatabase: DatabaseProtocol {
+  var fetch: () -> AnyPublisher<Result<[Project], DatabaseError>, Never>
+  var add: (Project) -> AnyPublisher<Result<Project, DatabaseError>, Never>
+  var delete: (Project) -> AnyPublisher<Result<Project, DatabaseError>, Never>
 }
 
 extension SwiftDatabase: DependencyKey {
@@ -43,9 +30,12 @@ extension SwiftDatabase: DependencyKey {
         @Dependency(\.database.modelContext) var context
         let projectContext = try context()
         let descriptor = FetchDescriptor<Project>(sortBy: [SortDescriptor(\.deadline)])
-        return try projectContext.fetch(descriptor)
+        let projects = try projectContext.fetch(descriptor)
+        return Just(.success(projects))
+          .eraseToAnyPublisher()
       } catch {
-        return []
+        return Just(.failure(.fetchFailed(error)))
+          .eraseToAnyPublisher()
       }
     },
     add: { project in
@@ -53,8 +43,11 @@ extension SwiftDatabase: DependencyKey {
         @Dependency(\.database.modelContext) var context
         let projectContext = try context()
         projectContext.insert(project)
+        return Just(.success(project))
+          .eraseToAnyPublisher()
       } catch {
-        throw DatabaseError.addFailed
+        return Just(.failure(.addFailed(error)))
+          .eraseToAnyPublisher()
       }
     },
     delete: { project in
@@ -62,8 +55,11 @@ extension SwiftDatabase: DependencyKey {
         @Dependency(\.database.modelContext) var context
         let projectContext = try context()
         projectContext.delete(project)
+        return Just(.success(project))
+          .eraseToAnyPublisher()
       } catch {
-        throw DatabaseError.deleteFailed
+        return Just(.failure(.deleteFailed(error)))
+          .eraseToAnyPublisher()
       }
     }
   )

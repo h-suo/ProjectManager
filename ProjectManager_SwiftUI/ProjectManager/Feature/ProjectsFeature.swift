@@ -12,7 +12,7 @@ import Foundation
 struct ProjectsFeature {
   @ObservableState
   struct State: Equatable {
-    var projects: IdentifiedArrayOf<Project> = []
+    var projects: [Project] = []
     @Presents var alert: AlertState<Action.Alert>?
     @Presents var updateProject: ProjectDetailFeature.State?
   }
@@ -24,13 +24,15 @@ struct ProjectsFeature {
     case projectRowDeleted(Project)
     case alert(PresentationAction<Alert>)
     case updateProject(PresentationAction<ProjectDetailFeature.Action>)
+    case fetchProjects(Result<[Project], DatabaseError>)
+    case handleProject(Result<Project, DatabaseError>)
     
     enum Alert: Equatable {
       case confirmError
     }
   }
   
-  @Dependency(\.swiftDatabase) private var database
+  @Dependency(\.swiftDatabase) private var swiftDatabase
   
   private func errorAlertState(_ error: Error) -> AlertState<Action.Alert> {
     return AlertState {
@@ -46,13 +48,11 @@ struct ProjectsFeature {
     Reduce { state, action in
       switch action {
       case .onAppear:
-        do {
-          let projects = try database.fetch()
-          state.projects = IdentifiedArray(uniqueElements: projects)
-        } catch {
-          state.alert = errorAlertState(error)
+        return .publisher {
+          swiftDatabase.fetch()
+            .receive(on: DispatchQueue.main)
+            .map(Action.fetchProjects)
         }
-        return .none
       case .addButtonTapped:
         state.updateProject = ProjectDetailFeature.State(
           project: Project(
@@ -70,29 +70,42 @@ struct ProjectsFeature {
         )
         return .none
       case let .projectRowDeleted(project):
-        do {
-          try database.delete(project)
-        } catch {
-          state.alert = errorAlertState(error)
+        return .publisher {
+          swiftDatabase.delete(project)
+            .receive(on: DispatchQueue.main)
+            .map(Action.handleProject)
         }
-        return .run { @MainActor send in
-          send(.onAppear, animation: .easeIn)
-        }
-      case let .updateProject(.presented(.delegate(.saveProject(project)))):
-        do {
-          try database.add(project)
-        } catch {
-          state.alert = errorAlertState(error)
-        }
-        return .run { @MainActor send in
-          send(.onAppear, animation: .easeIn)
-        }
-      case .updateProject:
-        return .none
+        
       case .alert(.presented(.confirmError)):
         state.alert = nil
         return .none
       case .alert:
+        return .none
+        
+      case let .updateProject(.presented(.delegate(.saveProject(project)))):
+        return .publisher {
+          swiftDatabase.add(project)
+            .receive(on: DispatchQueue.main)
+            .map(Action.handleProject)
+        }
+      case .updateProject:
+        return .none
+        
+      case let .fetchProjects(result):
+        switch result {
+        case let .success(projects):
+          state.projects = projects
+        case let .failure(error):
+          state.alert = errorAlertState(error)
+        }
+        return .none
+      case let .handleProject(result):
+        switch result {
+        case .success(_):
+          return .send(.onAppear)
+        case let .failure(error):
+          state.alert = errorAlertState(error)
+        }
         return .none
       }
     }
