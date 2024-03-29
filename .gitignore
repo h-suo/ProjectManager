@@ -69,6 +69,9 @@ xcuserdata/
 *.xccheckout
 *.xcscmblueprint
 
+## Service Info
+ProjectManager_SwiftUI/ProjectManager/Resource/GoogleService-Info.plist
+
 ## Obj-C/Swift specific
 *.hmap
 *.ipa
