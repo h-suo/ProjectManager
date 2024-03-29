@@ -15,7 +15,7 @@ extension DependencyValues {
   }
 }
 
-fileprivate let modelContext: ModelContext = {
+fileprivate let myModelContext: ModelContext = {
   do {
     let container = try ModelContainer(for: Project.self)
     return ModelContext(container)
@@ -25,11 +25,11 @@ fileprivate let modelContext: ModelContext = {
 }()
 
 struct Database {
-  var context: () throws -> ModelContext
+  var modelContext: () throws -> ModelContext
 }
 
 extension Database: DependencyKey {
   static let liveValue = Self(
-    context: { modelContext }
+    modelContext: { myModelContext },
   )
 }

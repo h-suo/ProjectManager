@@ -40,7 +40,7 @@ extension SwiftDatabase: DependencyKey {
   static var liveValue: SwiftDatabase = Self(
     fetch: {
       do {
-        @Dependency(\.database.context) var context
+        @Dependency(\.database.modelContext) var context
         let projectContext = try context()
         let descriptor = FetchDescriptor<Project>(sortBy: [SortDescriptor(\.deadline)])
         return try projectContext.fetch(descriptor)
@@ -50,7 +50,7 @@ extension SwiftDatabase: DependencyKey {
     },
     add: { project in
       do {
-        @Dependency(\.database.context) var context
+        @Dependency(\.database.modelContext) var context
         let projectContext = try context()
         projectContext.insert(project)
       } catch {
@@ -59,7 +59,7 @@ extension SwiftDatabase: DependencyKey {
     },
     delete: { project in
       do {
-        @Dependency(\.database.context) var context
+        @Dependency(\.database.modelContext) var context
         let projectContext = try context()
         projectContext.delete(project)
       } catch {

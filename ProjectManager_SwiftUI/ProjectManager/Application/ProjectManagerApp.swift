@@ -14,7 +14,7 @@ struct ProjectManagerApp: App {
   @Dependency(\.database) private var databaseService
   private var modelContext: ModelContext {
     do {
-      return try self.databaseService.context()
+      return try self.databaseService.modelContext()
     } catch {
       fatalError(error.localizedDescription)
     }
