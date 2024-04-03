@@ -33,6 +33,7 @@ struct ProjectsFeature {
   }
   
   @Dependency(\.swiftDatabase) private var swiftDatabase
+  @Dependency(\.firebaseDatabase) private var firebaseDatabase
   
   private func errorAlertState(_ error: Error) -> AlertState<Action.Alert> {
     return AlertState {
@@ -50,6 +51,7 @@ struct ProjectsFeature {
       case .onAppear:
         return .publisher {
           swiftDatabase.fetch()
+            .merge(with: firebaseDatabase.fetch())
             .receive(on: DispatchQueue.main)
             .map(Action.fetchProjects)
         }
@@ -72,41 +74,41 @@ struct ProjectsFeature {
       case let .projectRowDeleted(project):
         return .publisher {
           swiftDatabase.delete(project)
+            .merge(with: firebaseDatabase.delete(project))
             .receive(on: DispatchQueue.main)
             .map(Action.handleProject)
         }
-        
       case .alert(.presented(.confirmError)):
         state.alert = nil
         return .none
       case .alert:
         return .none
-        
       case let .updateProject(.presented(.delegate(.saveProject(project)))):
         return .publisher {
           swiftDatabase.add(project)
+            .merge(with: firebaseDatabase.add(project))
             .receive(on: DispatchQueue.main)
             .map(Action.handleProject)
         }
       case .updateProject:
         return .none
-        
       case let .fetchProjects(result):
         switch result {
         case let .success(projects):
           state.projects = projects
+          return .none
         case let .failure(error):
           state.alert = errorAlertState(error)
+          return .none
         }
-        return .none
       case let .handleProject(result):
         switch result {
         case .success(_):
           return .send(.onAppear)
         case let .failure(error):
           state.alert = errorAlertState(error)
+          return .none
         }
-        return .none
       }
     }
     .ifLet(\.$updateProject, action: \.updateProject) {
