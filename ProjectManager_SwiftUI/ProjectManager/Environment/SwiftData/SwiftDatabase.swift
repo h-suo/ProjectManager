@@ -54,7 +54,11 @@ extension SwiftDatabase: DependencyKey {
       do {
         @Dependency(\.database.modelContext) var context
         let projectContext = try context()
-        projectContext.delete(project.convertToSwiftDataProject())
+        let projectID = project.id
+        try projectContext.delete(
+          model: SwiftDataProject.self,
+          where: #Predicate { $0.id == projectID }
+        )
         return Just(.success(project))
           .eraseToAnyPublisher()
       } catch {
