@@ -67,13 +67,14 @@
 
 ### UML
 
-<Img src = "https://github.com/h-suo/ProjectManager/assets/109963294/ed8baa19-46ea-4a24-8b09-020a12d28e9d" width="800"/>
+<Img src = "https://github.com/h-suo/ProjectManager/assets/109963294/8f2aca60-324e-4a09-8a85-2ed88a55cdbd" width="800"/>
 
 <br>
 
 ### 파일트리
 
 ```
+ProjectManager
 ├── Application
 │   └── ProjectManagerApp.swift
 ├── Feature
