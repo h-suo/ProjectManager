@@ -37,7 +37,8 @@ struct ProjectsFeature {
   
   private func errorAlertState(_ error: Error) -> AlertState<Action.Alert> {
     return AlertState {
-      TextState(error.localizedDescription)
+      let userError = error as? UserReadableError
+      return TextState(userError?.userMessage ?? error.localizedDescription)
     } actions: {
       ButtonState(role: .cancel, action: .confirmError) {
         TextState("OK")

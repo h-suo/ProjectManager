@@ -14,7 +14,7 @@ protocol DatabaseProtocol {
   var delete: (Project) -> AnyPublisher<Result<Project, DatabaseError>, Never> { get }
 }
 
-enum DatabaseError: LocalizedError {
+enum DatabaseError: LocalizedError, UserReadableError {
   case fetchFailed(Error)
   case addFailed(Error)
   case deleteFailed(Error)
@@ -28,5 +28,9 @@ enum DatabaseError: LocalizedError {
     case let .deleteFailed(error):
       return "Deletion failed.: \(error.localizedDescription)"
     }
+  }
+  
+  var userMessage: String? {
+    return "The operation failed.\n Please check your internet connection and try again."
   }
 }
