@@ -156,6 +156,33 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		4582DE9C2BBD1E5E00BD0B59 /* SwiftData */ = {
+			isa = PBXGroup;
+			children = (
+				45E456BC2BB70C8D00FF3C84 /* SwiftDataProject.swift */,
+				454BD0362BA97B4F00B89155 /* SwiftDatabase.swift */,
+			);
+			path = SwiftData;
+			sourceTree = "<group>";
+		};
+		4582DE9D2BBD1E6800BD0B59 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				45E456BA2BB6F42B00FF3C84 /* FirebaseProject.swift */,
+				454311352BB69C63001C3058 /* FirebaseDatabase.swift */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
+		4582DE9E2BBD1E6E00BD0B59 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				454311372BB6A462001C3058 /* DatabaseProtocol.swift */,
+				454BD0382BA9870C00B89155 /* Database.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		458BA4712B96D6E200FDF1C6 /* Application */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,8 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				458BA4892B96FA5B00FDF1C6 /* Project.swift */,
-				45E456BC2BB70C8D00FF3C84 /* SwiftDataProject.swift */,
-				45E456BA2BB6F42B00FF3C84 /* FirebaseProject.swift */,
 				458BA48B2B96FBA500FDF1C6 /* ProjectsFeature.swift */,
 				4560276F2B997978003AED64 /* ProjectDetailFeature.swift */,
 			);
@@ -199,10 +224,9 @@
 		458BA4862B96F63D00FDF1C6 /* Environment */ = {
 			isa = PBXGroup;
 			children = (
-				454311372BB6A462001C3058 /* DatabaseProtocol.swift */,
-				454BD0382BA9870C00B89155 /* Database.swift */,
-				454BD0362BA97B4F00B89155 /* SwiftDatabase.swift */,
-				454311352BB69C63001C3058 /* FirebaseDatabase.swift */,
+				4582DE9E2BBD1E6E00BD0B59 /* Database */,
+				4582DE9C2BBD1E5E00BD0B59 /* SwiftData */,
+				4582DE9D2BBD1E6800BD0B59 /* Firebase */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
