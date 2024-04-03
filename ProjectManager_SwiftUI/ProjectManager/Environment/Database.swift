@@ -17,7 +17,7 @@ extension DependencyValues {
 
 fileprivate let myModelContext: ModelContext = {
   do {
-    let container = try ModelContainer(for: Project.self)
+    let container = try ModelContainer(for: SwiftDataProject.self)
     return ModelContext(container)
   } catch {
     fatalError("Container creation failed.")

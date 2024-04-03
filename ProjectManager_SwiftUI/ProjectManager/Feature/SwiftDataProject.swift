@@ -1,32 +1,27 @@
 //
-//  Project.swift
+//  SwiftDataProject.swift
 //  ProjectManager
 //
-//  Created by Erick on 3/5/24.
+//  Created by Erick on 3/29/24.
 //
 
 import Foundation
+import SwiftData
 
-enum ProjectState: String, CaseIterable, Codable {
-  case todo = "TODO"
-  case doing = "DOING"
-  case done = "DONE"
-}
-
-struct Project: Identifiable, Equatable {
-  var id: UUID
+@Model
+final class SwiftDataProject {
+  @Attribute(.unique) var id: UUID
   var title: String
   var body: String
   var deadline: Date
   var projectState: ProjectState
-  var isExceed: Bool { Calendar.compareDate(deadline) ?? false }
   
   init(
-    id: UUID = UUID(),
+    id: UUID,
     title: String,
     body: String,
     deadline: Date,
-    projectState: ProjectState = .todo
+    projectState: ProjectState
   ) {
     self.id = id
     self.title = title
@@ -36,9 +31,9 @@ struct Project: Identifiable, Equatable {
   }
 }
 
-extension Project {
-  func convertToSwiftDataProject() -> SwiftDataProject {
-    SwiftDataProject(
+extension SwiftDataProject {
+  func convertToProject() -> Project {
+    Project(
       id: id,
       title: title,
       body: body,

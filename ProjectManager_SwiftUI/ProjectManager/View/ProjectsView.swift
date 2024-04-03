@@ -64,7 +64,7 @@ struct ProjectsView: View {
 #Preview {
   let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
   let container = try! ModelContainer(
-    for: Project.self,
+    for: SwiftDataProject.self,
     configurations: configuration
   )
   

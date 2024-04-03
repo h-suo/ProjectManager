@@ -29,8 +29,8 @@ extension SwiftDatabase: DependencyKey {
       do {
         @Dependency(\.database.modelContext) var context
         let projectContext = try context()
-        let descriptor = FetchDescriptor<Project>(sortBy: [SortDescriptor(\.deadline)])
-        let projects = try projectContext.fetch(descriptor)
+        let descriptor = FetchDescriptor<SwiftDataProject>(sortBy: [SortDescriptor(\.deadline)])
+        let projects = try projectContext.fetch(descriptor).map { $0.convertToProject() }
         return Just(.success(projects))
           .eraseToAnyPublisher()
       } catch {
@@ -42,7 +42,7 @@ extension SwiftDatabase: DependencyKey {
       do {
         @Dependency(\.database.modelContext) var context
         let projectContext = try context()
-        projectContext.insert(project)
+        projectContext.insert(project.convertToSwiftDataProject())
         return Just(.success(project))
           .eraseToAnyPublisher()
       } catch {
@@ -54,7 +54,7 @@ extension SwiftDatabase: DependencyKey {
       do {
         @Dependency(\.database.modelContext) var context
         let projectContext = try context()
-        projectContext.delete(project)
+        projectContext.delete(project.convertToSwiftDataProject())
         return Just(.success(project))
           .eraseToAnyPublisher()
       } catch {
