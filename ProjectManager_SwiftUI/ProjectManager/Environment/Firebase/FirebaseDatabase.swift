@@ -28,7 +28,7 @@ extension FirebaseDatabase: DependencyKey {
       return Future<Result<[Project], DatabaseError>, Never> { promise in
         @Dependency(\.database.firestore) var firestore
         let db = firestore()
-        db.collection("Project").getDocuments { snapshot, error in
+        db.collection("Project").order(by: "deadline").getDocuments { snapshot, error in
           if let error {
             promise(.success(.failure(.fetchFailed(error))))
           } else if let snapshot {
