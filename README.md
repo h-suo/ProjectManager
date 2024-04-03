@@ -28,6 +28,8 @@
 >   - 프로젝트의 가독성 및 역할 분리를 위해 TCA 사용
 > - **SwiftData**
 >   - 데이터를 로컬에 저장하기 위해 SwiftData를 이용한 저장 기능 구현
+> - **Firebase**
+>   - 데이터를 리모트에 저장하기 위해 Firebase를 이용한 저장 기능 구현
 
 <br>
 
@@ -44,7 +46,7 @@
 <a id="3."></a>
 ## 3. ⏱️ 타임라인
 
-> SwiftUI 프로젝트 기간 :  2024.03.04 ~ 2024.03.21
+> SwiftUI 프로젝트 기간 :  2024.03.04 ~ 2024.04.03
 
 |날짜|내용|
 |:---:|---|
@@ -55,6 +57,8 @@
 | **2023.03.09** |▫️ Projects 필터링 로직 추가 <br> ▫️ Project State 변경 기능 구현 <br>|
 | **2023.03.12** |▫️ 마감기한 초과 표시 기능 구현 <br>|
 | **2023.03.20** |▫️ Database Environment 생성 <br> ▫️ 로컬 저장 기능 구현 <br>|
+| **2023.03.29** |▫️ Firebase 패키지 추가 <br> ▫️ Database 추상화 및 Combine을 이용한 데이터 처리 <br>|
+| **2023.04.03** |▫️ FirebaseDatabase Environment 생성 <br> ▫️ firebaseDatabase의 작업을 merge를 이용해 병렬 처리 <br>|
 
 <br>
 
@@ -63,33 +67,41 @@
 
 ### UML
 
-<Img src = "https://github.com/h-suo/ProjectManager/assets/109963294/24a18bfb-1325-4a41-b2cd-8852c62a2d99" width="800"/>
+<Img src = "https://github.com/h-suo/ProjectManager/assets/109963294/ed8baa19-46ea-4a24-8b09-020a12d28e9d" width="800"/>
 
 <br>
 
 ### 파일트리
 
 ```
-ProjectManager
 ├── Application
 │   └── ProjectManagerApp.swift
 ├── Feature
 │   ├── Project.swift
 │   ├── ProjectsFeature.swift
 │   └── ProjectDetailFeature.swift
-└── View
+├── View
 │   ├── ProjectsView.swift
 │   ├── ProjectList.swift
 │   ├── ProjectRow.swift
 │   └── ProjectDetailView.swift
 ├── Environment
-│   ├── DataBase.swift
-│   └── ProjectDataBase.swift
+│   ├── Database
+│   │   ├── DatabaseProtocol.swift
+│   │   └── Database.swift
+│   ├── SwiftData
+│   │   ├── SwiftDataProject.swift
+│   │   └── SwiftDatabase.swift
+│   └── Firebase
+│       ├── FirebaseProject.swift
+│       └── FirebaseDatabase.swift
 ├── Util
-│   └── Extenstion
-│       └── Calendar+.swift
+│   ├── Extenstion
+│   │   └── Calendar+.swift
+│   └── UserReadableError.swift
 └── Resource
-    └── Assets.xcassets
+    ├── Assets.xcassets
+    └── GoogleService-Info.plist
 ```
 
 <br>
@@ -162,7 +174,7 @@ Projects를 관리하는 ProjectsFeature에는 Projects로 UI를 그려야 하�
 
 ```swift
 struct State: Equatable {
-  var projects: IdentifiedArrayOf<Project>
+  var projects: [Project]
 }
 ```
 
@@ -178,40 +190,41 @@ enum Action {
   case addButtonTapped
   case projectRowSelected(Project)
   case projectRowDeleted(Project)
+  case fetchProjects(Result<[Project], DatabaseError>)
 }
 ```
 
 **Reducer**
 
-Reducer는 Action이 주어졌을 때 State를 변경시키는 방법을 가지고 있는 함수입니다.
+Reducer는 Action이 주어졌을 때 Effect를 반환하거나 State를 변경시키는 방법을 가지고 있는 함수입니다.
 
-모든 Action에 대한 State 변경 로직을 구현했습니다.
+onAppear Action이 주어졌을 때 publisher Effect를 반환합니다. publisher Effect는 publisher의 output을 파라미터로 받는 Action으로 변환하여 실행하는 Effect입니다.
 
 ```swift
 var body: some Reducer<State, Action> {
   Reduce { state, action in
     switch action {
     case .onAppear:
-      do {
-        let projects = try database.fetch()
-        state.projects = IdentifiedArray(uniqueElements: projects)
-      } catch {
-        state.alert = errorAlertState(error)
+      return .publisher {
+        swiftDatabase.fetch()
+          .merge(with: firebaseDatabase.fetch())
+          .receive(on: DispatchQueue.main)
+          .map(Action.fetchProjects)
       }
-      return .none
     case .addButtonTapped:
       // Button event handling
     case let .projectRowSelected(project):
       // Project Select handling
     case let .projectRowDeleted(project):
-      do {
-        try database.delete(project)
-      } catch {
-        state.alert = errorAlertState(error)
+      // Project Delete handling
+    case let .fetchProjects(result):
+      switch result {
+      case let .success(projects):
+        state.projects = projects
+      case let .failure(error):
+        // Error handling
       }
-      return .run { @MainActor send in
-        send(.onAppear, animation: .easeIn)
-      }
+      return .none
     }
   }
 ```
@@ -242,25 +255,27 @@ struct ProjectsView: View {
 
 **Model**
 
-기존 Project 객체를 Model 매크로를 이용해 SwiftData가 관리할 수 있도록 했습니다.
+Project 객체에서 convert 할 수 있는 SwiftDataProject를 이용해 SwiftData에 데이터를 저장했습니다.
 
-Attribute를 이용해 deadline이 모든 인스턴스에서 고유하도록 지정하여 Model 데이터의 충돌을 피할 수 있도록 했습니다.
+Attribute를 이용해 id가 모든 인스턴스에서 고유하도록 지정하여 Model 데이터의 충돌을 피할 수 있도록 했습니다.
 
 ```swift
 @Model
-final class Project {
-  @Attribute(.unique) var deadline: Date
+final class SwiftDataProject {
+  @Attribute(.unique) var id: UUID
   var title: String
   var body: String
+  var deadline: Date
   var projectState: ProjectState
-  var isExceed: Bool { Calendar.compareDate(deadline) ?? false }
   
   init(
+    id: UUID,
     title: String,
     body: String,
     deadline: Date,
-    projectState: ProjectState = .todo
+    projectState: ProjectState
   ) {
+    self.id = id
     self.title = title
     self.body = body
     self.deadline = deadline
@@ -273,13 +288,13 @@ final class Project {
 
 SwiftData를 TCA에서 쉽게 사용할 수 있도록 DependencyKey를 이용해서 의존성 관리를 했습니다.
 
-ProjectDatabase를 생성하여 Project를 검색, 저장, 삭제하는 객체의 인터페이스를 지정했습니다.
+SwiftDatabase를 생성하여 Project를 검색, 저장, 삭제하는 객체의 인터페이스를 지정했습니다.
 
 ```swift
-struct ProjectDatabase {
-  var fetch: () throws -> [Project]
-  var add: (Project) throws -> Void
-  var delete: (Project) throws -> Void
+struct SwiftDatabase: DatabaseProtocol {
+  var fetch: () -> AnyPublisher<Result<[Project], DatabaseError>, Never>
+  var add: (Project) -> AnyPublisher<Result<Project, DatabaseError>, Never>
+  var delete: (Project) -> AnyPublisher<Result<Project, DatabaseError>, Never>
 }
 ```
 
@@ -288,50 +303,95 @@ struct ProjectDatabase {
 ModelContext를 이용해 Project의 검색, 저장, 삭제를 구현했습니다.
 
 ```swift
-extension ProjectDatabase: DependencyKey {
-  static var liveValue: ProjectDatabase = Self(
+extension SwiftDatabase: DependencyKey {
+  static var liveValue: SwiftDatabase = Self(
     fetch: {
       do {
-        @Dependency(\.database.context) var context
+        @Dependency(\.database.modelContext) var context
         let projectContext = try context()
-        let descriptor = FetchDescriptor<Project>(sortBy: [SortDescriptor(\.deadline)])
-        return try projectContext.fetch(descriptor)
+        let descriptor = FetchDescriptor<SwiftDataProject>(sortBy: [SortDescriptor(\.deadline)])
+        let projects = try projectContext.fetch(descriptor).map { $0.convertToProject() }
+        return Just(.success(projects))
+          .eraseToAnyPublisher()
       } catch {
-        // Error handling
+        return Just(.failure(.fetchFailed(error)))
+          .eraseToAnyPublisher()
       }
     },
     add: { project in
-      do {
-        @Dependency(\.database.context) var context
-        let projectContext = try context()
-        projectContext.insert(project)
-      } catch {
-        // Error handling
-      }
+      // Add Project handling
     },
     delete: { project in
-      do {
-        @Dependency(\.database.context) var context
-        let projectContext = try context()
-        projectContext.delete(project)
-      } catch {
-        // Error handling
-      }
+      // Delete Project handling
     }
   )
 }
 ```
 
-ProjectDatabase를 DependencyValues에 등록하여 Reducer에서 쉽게 접근할 수 있도록 했습니다.
+SwiftDatabase를 DependencyValues에 등록하여 Reducer에서 쉽게 접근할 수 있도록 했습니다.
 
 ```swift
 extension DependencyValues {
-  var projectDatabase: ProjectDatabase {
-    get { self[ProjectDatabase.self] }
-    set { self[ProjectDatabase.self] = newValue }
+  var swiftDatabase: SwiftDatabase {
+    get { self[SwiftDatabase.self] }
+    set { self[SwiftDatabase.self] = newValue }
   }
 }
 ```
+
+<br>
+
+### 4️⃣ Firebase
+
+리모트 DB를 구현하기 위해 Firebase의 Firestore를 사용했습니다.
+
+**Codable**
+
+Project 객체에서 convert 할 수 있는 FirebaseProject를 이용해 Firestore에 데이터를 저장했습니다.
+
+FirebaseProject는 Codable을 따르도록 하여 데이터 송수신 시 쉽게 변환할 수 있도록 했습니다.
+
+```swift
+struct FirebaseProject: Codable {
+  var id: String
+  var title: String
+  var body: String
+  var deadline: Date
+  var projectState: ProjectState
+}
+
+extension FirebaseProject {
+  func convertToProject() -> Project {
+    Project(
+      id: UUID(uuidString: id)!,
+      title: title,
+      body: body,
+      deadline: deadline,
+      projectState: projectState
+    )
+  }
+}
+```
+
+**DependencyKey**
+
+SwiftData와 같이 Firebase를 TCA에서 쉽게 사용할 수 있도록 DependencyKey를 이용해서 의존성 관리를 했습니다.
+
+**Merge**
+
+ProjectsFeature에서 데이터 검색, 저장, 삭제의 작업을 SwiftData와 Firebase가 모두 수행해야 했습니다.
+
+SwiftData와 Firebase를 두 개의 스트림으로 처리하지 않고, 하나의 스트림으로 처리하기 위해 merge를 이용해 작업을 처리했습니다.
+
+```swift
+return .publisher {
+  swiftDatabase.fetch()
+    .merge(with: firebaseDatabase.fetch())
+    .receive(on: DispatchQueue.main)
+    .map(Action.fetchProjects)
+}
+```
+
 <br>
 
 <a id="7."></a>
@@ -342,9 +402,11 @@ extension DependencyValues {
 - [Apple Developer: Model()](https://developer.apple.com/documentation/swiftdata/model())
 - [Apple Developer: Attribute(_:originalName:hashModifier:)](https://developer.apple.com/documentation/swiftdata/attribute(_:originalname:hashmodifier:))
 - [Apple Developer: ModelContext](https://developer.apple.com/documentation/swiftdata/modelcontext)
+- [Apple Developer: merge(with:)](https://developer.apple.com/documentation/combine/just/merge(with:))
 - [GitHub: swift Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture)
 - [GitHub: SwiftDataTCA](https://github.com/SouzaRodrigo61/SwiftDataTCA)
 - [Composable Architecture Documentation: Getting started](https://pointfreeco.github.io/swift-composable-architecture/main/documentation/composablearchitecture/gettingstarted)
+- [Firebase Documents: Firestore](https://firebase.google.com/docs/firestore?hl=ko)
 
 <br>
 
