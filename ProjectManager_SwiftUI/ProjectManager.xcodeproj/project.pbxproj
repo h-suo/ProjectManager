@@ -35,6 +35,7 @@
 		4543112C2BB69141001C3058 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 4543112B2BB69141001C3058 /* FirebaseStorage */; };
 		4543112E2BB69141001C3058 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 4543112D2BB69141001C3058 /* FirebaseStorageCombine-Community */; };
 		454311322BB69AA3001C3058 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 454311312BB69AA3001C3058 /* GoogleService-Info.plist */; };
+		454311362BB69C63001C3058 /* FirebaseDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454311352BB69C63001C3058 /* FirebaseDatabase.swift */; };
 		454311382BB6A462001C3058 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454311372BB6A462001C3058 /* DatabaseProtocol.swift */; };
 		454BD0372BA97B4F00B89155 /* SwiftDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BD0362BA97B4F00B89155 /* SwiftDatabase.swift */; };
 		454BD0392BA9870C00B89155 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454BD0382BA9870C00B89155 /* Database.swift */; };
@@ -50,11 +51,13 @@
 		458BA48E2B97337900FDF1C6 /* ProjectList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458BA48D2B97337900FDF1C6 /* ProjectList.swift */; };
 		458BA4902B9733A300FDF1C6 /* ProjectRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 458BA48F2B9733A300FDF1C6 /* ProjectRow.swift */; };
 		45A94E3D2BA031E800AF7D29 /* Calendar+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45A94E3C2BA031E800AF7D29 /* Calendar+.swift */; };
+		45E456BB2BB6F42B00FF3C84 /* FirebaseProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E456BA2BB6F42B00FF3C84 /* FirebaseProject.swift */; };
 		45E456BD2BB70C8D00FF3C84 /* SwiftDataProject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E456BC2BB70C8D00FF3C84 /* SwiftDataProject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		454311312BB69AA3001C3058 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		454311352BB69C63001C3058 /* FirebaseDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDatabase.swift; sourceTree = "<group>"; };
 		454311372BB6A462001C3058 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		454BD0362BA97B4F00B89155 /* SwiftDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDatabase.swift; sourceTree = "<group>"; };
 		454BD0382BA9870C00B89155 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -70,6 +73,7 @@
 		458BA48D2B97337900FDF1C6 /* ProjectList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectList.swift; sourceTree = "<group>"; };
 		458BA48F2B9733A300FDF1C6 /* ProjectRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectRow.swift; sourceTree = "<group>"; };
 		45A94E3C2BA031E800AF7D29 /* Calendar+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Calendar+.swift"; sourceTree = "<group>"; };
+		45E456BA2BB6F42B00FF3C84 /* FirebaseProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseProject.swift; sourceTree = "<group>"; };
 		45E456BC2BB70C8D00FF3C84 /* SwiftDataProject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataProject.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -165,6 +169,7 @@
 			children = (
 				458BA4892B96FA5B00FDF1C6 /* Project.swift */,
 				45E456BC2BB70C8D00FF3C84 /* SwiftDataProject.swift */,
+				45E456BA2BB6F42B00FF3C84 /* FirebaseProject.swift */,
 				458BA48B2B96FBA500FDF1C6 /* ProjectsFeature.swift */,
 				4560276F2B997978003AED64 /* ProjectDetailFeature.swift */,
 			);
@@ -197,6 +202,7 @@
 				454311372BB6A462001C3058 /* DatabaseProtocol.swift */,
 				454BD0382BA9870C00B89155 /* Database.swift */,
 				454BD0362BA97B4F00B89155 /* SwiftDatabase.swift */,
+				454311352BB69C63001C3058 /* FirebaseDatabase.swift */,
 			);
 			path = Environment;
 			sourceTree = "<group>";
@@ -324,6 +330,7 @@
 			files = (
 				454311382BB6A462001C3058 /* DatabaseProtocol.swift in Sources */,
 				458BA4902B9733A300FDF1C6 /* ProjectRow.swift in Sources */,
+				454311362BB69C63001C3058 /* FirebaseDatabase.swift in Sources */,
 				456027702B997978003AED64 /* ProjectDetailFeature.swift in Sources */,
 				45A94E3D2BA031E800AF7D29 /* Calendar+.swift in Sources */,
 				454BD0372BA97B4F00B89155 /* SwiftDatabase.swift in Sources */,
@@ -335,6 +342,7 @@
 				458BA48A2B96FA5B00FDF1C6 /* Project.swift in Sources */,
 				45E456BD2BB70C8D00FF3C84 /* SwiftDataProject.swift in Sources */,
 				456027722B997AE6003AED64 /* ProjectDetailView.swift in Sources */,
+				45E456BB2BB6F42B00FF3C84 /* FirebaseProject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

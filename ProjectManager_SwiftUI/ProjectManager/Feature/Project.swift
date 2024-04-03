@@ -46,4 +46,14 @@ extension Project {
       projectState: projectState
     )
   }
+  
+  func convertToFirebaseProject() -> FirebaseProject {
+    FirebaseProject(
+      id: id.uuidString,
+      title: title,
+      body: body,
+      deadline: deadline,
+      projectState: projectState
+    )
+  }
 }

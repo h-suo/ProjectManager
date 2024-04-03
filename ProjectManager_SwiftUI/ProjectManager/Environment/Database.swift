@@ -6,6 +6,7 @@
 //
 
 import Dependencies
+import FirebaseFirestore
 import SwiftData
 
 extension DependencyValues {
@@ -24,12 +25,18 @@ fileprivate let myModelContext: ModelContext = {
   }
 }()
 
+fileprivate let myFirestore: Firestore = {
+  Firestore.firestore()
+}()
+
 struct Database {
   var modelContext: () throws -> ModelContext
+  var firestore: () -> Firestore
 }
 
 extension Database: DependencyKey {
   static let liveValue = Self(
     modelContext: { myModelContext },
+    firestore: { myFirestore }
   )
 }
